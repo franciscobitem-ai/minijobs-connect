@@ -81,19 +81,26 @@ export default function Profile() {
   const handleSave = async () => {
     setSaving(true);
     try {
+      const updateData: Record<string, unknown> = {
+        first_name: profile.first_name,
+        last_name: profile.last_name,
+        dni_nie: profile.dni_nie || null,
+        birth_date: profile.birth_date || null,
+        address: profile.address || null,
+        phone: profile.phone || null,
+        payment_method: profile.payment_method || null,
+        collection_method: profile.collection_method || null,
+      };
+
+      if (profile.province) {
+        updateData.province = profile.province as "alava" | "albacete" | "alicante" | "almeria" | "asturias" | "avila" | "badajoz" | "barcelona" | "burgos" | "caceres" | "cadiz" | "cantabria" | "castellon" | "ciudad_real" | "cordoba" | "cuenca" | "girona" | "granada" | "guadalajara" | "guipuzcoa" | "huelva" | "huesca" | "islas_baleares" | "jaen" | "la_coruna" | "la_rioja" | "las_palmas" | "leon" | "lleida" | "lugo" | "madrid" | "malaga" | "murcia" | "navarra" | "ourense" | "palencia" | "pontevedra" | "salamanca" | "santa_cruz_tenerife" | "segovia" | "sevilla" | "soria" | "tarragona" | "teruel" | "toledo" | "valencia" | "valladolid" | "vizcaya" | "zamora" | "zaragoza" | "ceuta" | "melilla";
+      } else {
+        updateData.province = null;
+      }
+
       const { error } = await supabase
         .from("profiles")
-        .update({
-          first_name: profile.first_name,
-          last_name: profile.last_name,
-          dni_nie: profile.dni_nie || null,
-          birth_date: profile.birth_date || null,
-          address: profile.address || null,
-          province: profile.province || null,
-          phone: profile.phone || null,
-          payment_method: profile.payment_method || null,
-          collection_method: profile.collection_method || null,
-        })
+        .update(updateData)
         .eq("user_id", user!.id);
 
       if (error) throw error;
@@ -247,7 +254,7 @@ export default function Profile() {
       </Card>
 
       <div className="flex justify-end">
-        <Button variant="hero" onClick={handleSave} disabled={saving}>
+        <Button onClick={handleSave} disabled={saving}>
           {saving ? (
             <>
               <Loader2 className="h-4 w-4 mr-2 animate-spin" />

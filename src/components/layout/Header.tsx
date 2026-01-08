@@ -91,7 +91,7 @@ export function Header() {
               <Button variant="ghost" size="sm" onClick={() => navigate("/auth")}>
                 Iniciar sesión
               </Button>
-              <Button variant="hero" size="sm" onClick={() => navigate("/auth?mode=signup")}>
+              <Button size="sm" onClick={() => navigate("/auth?mode=signup")}>
                 Registrarse
               </Button>
             </>
@@ -165,7 +165,6 @@ export function Header() {
                   Iniciar sesión
                 </Button>
                 <Button 
-                  variant="hero" 
                   className="flex-1"
                   onClick={() => { navigate("/auth?mode=signup"); setMobileMenuOpen(false); }}
                 >
