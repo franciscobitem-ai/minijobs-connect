@@ -73,11 +73,10 @@ export default function CreateJob() {
         publisher_id: user!.id,
         title: formData.title,
         description: formData.description,
-        category: formData.category,
-        province: formData.province,
+        category: formData.category as "limpieza" | "reparaciones" | "mudanzas" | "jardineria" | "cuidado_personas" | "clases" | "tecnologia" | "otros",
+        province: formData.province as "alava" | "albacete" | "alicante" | "almeria" | "asturias" | "avila" | "badajoz" | "barcelona" | "burgos" | "caceres" | "cadiz" | "cantabria" | "castellon" | "ciudad_real" | "cordoba" | "cuenca" | "girona" | "granada" | "guadalajara" | "guipuzcoa" | "huelva" | "huesca" | "islas_baleares" | "jaen" | "la_coruna" | "la_rioja" | "las_palmas" | "leon" | "lleida" | "lugo" | "madrid" | "malaga" | "murcia" | "navarra" | "ourense" | "palencia" | "pontevedra" | "salamanca" | "santa_cruz_tenerife" | "segovia" | "sevilla" | "soria" | "tarragona" | "teruel" | "toledo" | "valencia" | "valladolid" | "vizcaya" | "zamora" | "zaragoza" | "ceuta" | "melilla",
         budget: parseFloat(formData.budget),
         estimated_date: formData.estimatedDate || null,
-        status: "open",
       });
 
       if (error) throw error;
@@ -219,7 +218,7 @@ export default function CreateJob() {
                 <Button type="button" variant="outline" onClick={() => navigate(-1)} className="flex-1">
                   Cancelar
                 </Button>
-                <Button type="submit" variant="hero" disabled={loading} className="flex-1">
+                <Button type="submit" disabled={loading} className="flex-1">
                   {loading ? (
                     <>
                       <Loader2 className="h-4 w-4 mr-2 animate-spin" />

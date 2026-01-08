@@ -53,15 +53,25 @@ export default function JobDetail() {
     try {
       const { data, error } = await supabase
         .from("jobs")
-        .select(`
-          *,
-          profiles:publisher_id (first_name, last_name)
-        `)
+        .select("*")
         .eq("id", id)
         .maybeSingle();
 
       if (error) throw error;
-      setJob(data as Job);
+      
+      if (data) {
+        // Fetch publisher profile separately
+        const { data: profileData } = await supabase
+          .from("profiles")
+          .select("first_name, last_name")
+          .eq("user_id", data.publisher_id)
+          .maybeSingle();
+        
+        setJob({
+          ...data,
+          profiles: profileData || undefined,
+        } as Job);
+      }
     } catch (error) {
       console.error("Error fetching job:", error);
       toast.error("No se pudo cargar el trabajo");
@@ -219,7 +229,7 @@ export default function JobDetail() {
                         onChange={(e) => setMessage(e.target.value)}
                         rows={4}
                       />
-                      <Button variant="hero" onClick={handleApply} disabled={applying}>
+                      <Button onClick={handleApply} disabled={applying}>
                         {applying ? (
                           <>
                             <Loader2 className="h-4 w-4 mr-2 animate-spin" />
@@ -252,7 +262,7 @@ export default function JobDetail() {
                 
                 {!user && job.status === "open" && (
                   <div className="space-y-3">
-                    <Button variant="hero" className="w-full" asChild>
+                    <Button className="w-full" asChild>
                       <Link to="/auth?mode=signup">Crear cuenta para postularse</Link>
                     </Button>
                     <p className="text-xs text-center text-muted-foreground">

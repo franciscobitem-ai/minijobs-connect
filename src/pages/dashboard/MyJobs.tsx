@@ -72,7 +72,7 @@ export default function MyJobs() {
           <h1 className="font-display text-2xl font-bold">Mis trabajos publicados</h1>
           <p className="text-muted-foreground">Gestiona los trabajos que has publicado</p>
         </div>
-        <Button variant="hero" asChild>
+        <Button asChild>
           <Link to="/jobs/create">
             <Plus className="h-4 w-4 mr-2" />
             Publicar trabajo
@@ -107,7 +107,7 @@ export default function MyJobs() {
                     ? "Aún no has publicado ningún trabajo"
                     : `No tienes trabajos con estado "${JOB_STATUS[filter as JobStatus].label}"`}
                 </p>
-                <Button variant="hero" asChild>
+                <Button asChild>
                   <Link to="/jobs/create">
                     <Plus className="h-4 w-4 mr-2" />
                     Publicar trabajo

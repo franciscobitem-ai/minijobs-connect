@@ -29,7 +29,7 @@ export function CTASection() {
               {user ? (
                 <>
                   <Button 
-                    size="xl" 
+                    size="lg" 
                     className="bg-background text-foreground hover:bg-background/90 shadow-xl"
                     asChild
                   >
@@ -40,7 +40,7 @@ export function CTASection() {
                   </Button>
                   <Button 
                     variant="outline" 
-                    size="xl"
+                    size="lg"
                     className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10"
                     asChild
                   >
@@ -52,7 +52,7 @@ export function CTASection() {
               ) : (
                 <>
                   <Button 
-                    size="xl" 
+                    size="lg" 
                     className="bg-background text-foreground hover:bg-background/90 shadow-xl"
                     asChild
                   >
@@ -63,7 +63,7 @@ export function CTASection() {
                   </Button>
                   <Button 
                     variant="outline" 
-                    size="xl"
+                    size="lg"
                     className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10"
                     asChild
                   >

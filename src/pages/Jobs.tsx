@@ -45,10 +45,10 @@ export default function Jobs() {
         .order("created_at", { ascending: false });
 
       if (category && category !== "all") {
-        query = query.eq("category", category);
+        query = query.eq("category", category as JobCategory);
       }
       if (province && province !== "all") {
-        query = query.eq("province", province);
+        query = query.eq("province", province as Province);
       }
 
       const { data, error } = await query;
@@ -90,7 +90,7 @@ export default function Jobs() {
               </p>
             </div>
             {user && (
-              <Button variant="hero" asChild>
+              <Button asChild>
                 <Link to="/jobs/create">
                   <Plus className="h-4 w-4 mr-2" />
                   Publicar trabajo
@@ -157,7 +157,7 @@ export default function Jobs() {
               Prueba a cambiar los filtros o sé el primero en publicar uno.
             </p>
             {user && (
-              <Button variant="hero" asChild>
+              <Button asChild>
                 <Link to="/jobs/create">
                   <Plus className="h-4 w-4 mr-2" />
                   Publicar trabajo

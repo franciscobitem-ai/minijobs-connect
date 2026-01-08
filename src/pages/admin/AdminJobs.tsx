@@ -38,14 +38,28 @@ export default function AdminJobs() {
     try {
       const { data, error } = await supabase
         .from("jobs")
-        .select(`
-          *,
-          profiles:publisher_id (first_name, last_name)
-        `)
+        .select("*")
         .order("created_at", { ascending: false });
 
       if (error) throw error;
-      setJobs((data as Job[]) || []);
+
+      // Fetch profiles for all publishers
+      const publisherIds = [...new Set((data || []).map((j) => j.publisher_id))];
+      const { data: profilesData } = await supabase
+        .from("profiles")
+        .select("user_id, first_name, last_name")
+        .in("user_id", publisherIds);
+
+      const profilesMap = new Map(
+        (profilesData || []).map((p) => [p.user_id, { first_name: p.first_name, last_name: p.last_name }])
+      );
+
+      setJobs(
+        (data || []).map((job) => ({
+          ...job,
+          profiles: profilesMap.get(job.publisher_id),
+        })) as Job[]
+      );
     } catch (error) {
       console.error("Error fetching jobs:", error);
     } finally {

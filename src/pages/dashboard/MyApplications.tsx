@@ -93,7 +93,7 @@ export default function MyApplications() {
             <p className="text-muted-foreground text-center mb-4">
               Aún no te has postulado a ningún trabajo
             </p>
-            <Button variant="hero" asChild>
+            <Button asChild>
               <Link to="/jobs">Explorar trabajos</Link>
             </Button>
           </CardContent>

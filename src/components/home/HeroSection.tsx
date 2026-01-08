@@ -37,20 +37,20 @@ export function HeroSection() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button variant="hero" size="xl" asChild>
+            <Button size="lg" asChild>
               <Link to="/jobs">
                 Buscar trabajos
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
             {user ? (
-              <Button variant="outline" size="xl" asChild>
+              <Button variant="outline" size="lg" asChild>
                 <Link to="/jobs/create">
                   Publicar un trabajo
                 </Link>
               </Button>
             ) : (
-              <Button variant="outline" size="xl" asChild>
+              <Button variant="outline" size="lg" asChild>
                 <Link to="/auth?mode=signup">
                   Crear cuenta gratis
                 </Link>
